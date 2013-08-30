@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="/css/game.css"/>
+
+<div style="padding-top:40px"></div>
+<h1> {{ game.title }} </h1>
+
+<div class="row">
+  <div class="stats col-md-2">
+    <div ng-repeat="stat in game.stats">
+      {{stat.name}}: {{stat.start}}
+    </div>
+  </div>
+
+  <div class="main col-md-6">
+    <div class="desc">
+      {{game.current_room.desc}}
+    </div>
+
+    <ul class="list-group items" ng-show="game.current_room.objects">
+      Here, you see:
+        <li class="item list-group-item" ng-repeat="object in game.current_room.objects">
+          {{object.name}} - {{object.desc}}</li>
+    </ul>
+
+    <ul class="routes list-group" ng-show="game.current_room.routes">
+      You can go: 
+      <li class="route list-group-item" ng-repeat="route in game.current_room.routes">
+        <button ng-click="goto(route.to)" ng-disabled="!route.to">
+          {{route.name}}
+        </button>
+        {{route.desc}} </li>
+    </ul>
+  </div>
+</div>
