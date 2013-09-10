@@ -53,14 +53,13 @@ function WriterCtrl($scope, $routeParams, $http){
   load('wizardhackers');
 
   $scope.addPlace = function(){
-    game.places.push( {
+    $scope.game.places.push( {
       "name": "New place",
-      "routes": [],
       "objects": [] });
   }
 
   $scope.addRoute = function(){
-    game.routes.push({});
+    $scope.game.routes.push({});
   }
 
   $scope.addObject = function(place){
@@ -68,4 +67,9 @@ function WriterCtrl($scope, $routeParams, $http){
     place.objects.push({});
   }
 
+  $scope.routeName = function(route){
+    var to = $scope.game.places.filter( function(d) { return d.id == route.to } )[0] || {};
+    var from = $scope.game.places.filter( function(d) { return d.id == route.from } )[0] || {};
+    return (from.name || '_' ) + " to " + ( to.name || '_' ) + " via " + (route.name || '_');
+  }
 }
