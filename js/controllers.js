@@ -72,4 +72,16 @@ function WriterCtrl($scope, $routeParams, $http){
     var from = $scope.game.places.filter( function(d) { return d.id == route.from } )[0] || {};
     return (from.name || '_' ) + " to " + ( to.name || '_' ) + " via " + (route.name || '_');
   }
+
+  $scope.saveGame = function(name){
+    var game = $scope.game;
+    var games = (localStorage.games) ? JSON.parse(localStorage.games) : {};
+    games[name] = game;
+    localStorage.games = angular.toJson(games);
+  }
+
+  $scope.loadGame = function(name){
+    $scope.game = JSON.parse(localStorage.games)[name];
+
+  }
 }
