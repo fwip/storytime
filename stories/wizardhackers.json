@@ -1,41 +1,45 @@
 {
   "title": "WIZARD HACKERS",
 
-  "rooms": {
-    "start": {
-      "desc": "You wake up and find yourself in a strange, small cyber room. You swallow nervously, before remembering that you have the gumption to handle anything this 'net can throw at you. After all, you are a hacker. A wizard hacker.",
-      "objects": [
-        {
-          "name": "A pencil",
-          "desc": "A long, thin pencil. You're not sure why it's here."
-        }
-      ],
-      "routes": [
-        {
-          "name": "East",
-          "desc": "A small hole in the cyber wall reveals a winding trail to the east. You're quite sure you're slippery enough to wiggle through it.",
-          "to": "superfreeway"
-        }
-      ]
-    },
-
-    "superfreeway": {
-      "desc": "Upon closer inspection, you are not on a thin trail at all, but rather, a tangled braid of massive cables, each one easily thick enough to support your weight on its own. Luminescent spheres of pure information rocket down each line with the latest cat photos. You're not quite sure how you made that mistake.",
-
-      "routes": [
-        {
-          "name": "West",
-          "desc": "To the west, the room you came from has vanished. Even a neophyte wizard hacker like yourself knows better than to be surprised. The 'net is a volatile place, after all."
-        }
-      ]
+  "places": [
+    {
+    "id": 1,
+    "name": "Starting Room",
+    "desc": "You wake up and find yourself in a strange, small cyber room. You swallow nervously, before remembering that you have the gumption to handle anything this 'net can throw at you. After all, you are a hacker. A wizard hacker.",
+    "objects": [
+      {
+      "name": "A pencil",
+      "desc": "A long, thin pencil. You're not sure why it's here."
     }
-
+    ]
   },
+  {
+    "id": 2,
+    "name": "Super Freeway",
+    "desc": "Upon closer inspection, you are not on a thin trail at all, but rather, a tangled braid of massive cables, each one easily thick enough to support your weight on its own. Luminescent spheres of pure information rocket down each line with the latest cat photos. You're not quite sure how you made that mistake."
+  }
+  ],
 
   "stats": [
     { "name": "Gumption", "start": "5" },
     { "name": "Poise", "start": "1" },
     { "name": "MHz", "start": "1.1" },
-    { "name": "Wand length", "start": "3in" }
+    { "name": "Wands" , "start": "1" }
+  ],
+
+  "routes": [
+    {
+    "name": "East",
+    "to": 2,
+    "from": 1,
+    "desc": "A small hole in the cyber wall reveals a winding trail to the east. You're quite sure you're slippery enough to wiggle through it."
+  },
+  {
+    "name": "West",
+    "from": 2,
+    "to": 1,
+    "disabled": true,
+    "desc": "To the west, the room you came from has vanished. Even a neophyte wizard hacker like yourself knows better than to be surprised. The 'net is a volatile place, after all."
+  }
   ]
 }

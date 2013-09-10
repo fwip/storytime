@@ -1,33 +1,34 @@
 <link rel="stylesheet" href="/css/game.css"/>
 
-<div style="padding-top:40px"></div>
 <h1> {{ game.title }} </h1>
 
-<div class="row">
-  <div class="stats col-md-2">
-    <div ng-repeat="stat in game.stats">
-      {{stat.name}}: {{stat.start}}
-    </div>
+<div class="container-fluid">
+  <div class="stats sidebar col-lg-2" ng-show="game.stats.length">
+    <table class="table"> <tbody>
+    <tr ng-repeat="stat in game.stats">
+      <td> {{stat.name}} </td><td> {{stat.start}} </td>
+    </tr>
+  </tbody> </table>
   </div>
 
-  <div class="main col-md-6">
+  <div class="main content col-lg-10">
     <div class="desc">
-      {{game.current_room.desc}}
+      {{game.current_place.desc}}
     </div>
 
-    <ul class="list-group items" ng-show="game.current_room.objects">
+    <ul class="list-group items" ng-show="game.current_place.objects">
       Here, you see:
-        <li class="item list-group-item" ng-repeat="object in game.current_room.objects">
-          {{object.name}} - {{object.desc}}</li>
+      <li class="item list-group-item" ng-repeat="object in game.current_place.objects">
+      {{object.name}} - {{object.desc}}</li>
     </ul>
 
-    <ul class="routes list-group" ng-show="game.current_room.routes">
+    <ul class="routes list-group" ng-show="game.available_routes">
       You can go: 
-      <li class="route list-group-item" ng-repeat="route in game.current_room.routes">
-        <button ng-click="goto(route.to)" ng-disabled="!route.to">
-          {{route.name}}
-        </button>
-        {{route.desc}} </li>
+      <li class="route list-group-item" ng-repeat="route in game.available_routes">
+      <button ng-click="goto(route.to)" ng-disabled="!route.to">
+        {{route.name}}
+      </button>
+      {{route.desc}} </li>
     </ul>
   </div>
 </div>

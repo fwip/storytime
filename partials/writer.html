@@ -1,1 +1,117 @@
-<h1> The writing app will be here </h1>
+<h1> Writing: {{ game.title }} </h1>
+
+
+<tabset>
+
+<tab heading="Stats">
+<table class="table">
+  <tr> <th> Stat </th> <th> Starting value </th> </tr>
+  <tr ng-repeat="stat in game.stats">
+    <td> <input class="form-control" ng-model="stat.name"> </input> </td>
+    <td> <input class="form-control" ng-model="stat.start"> </input> </td>
+  </tr>
+</table>
+</tab>
+
+<tab heading="Routes">
+  <div ng-repeat="route in game.routes">
+    <div class="container form-group">
+      <label class="col-lg-1"> Name </label>
+      <div class="col-lg-11"><input class="form-control input-lg" ng-model="route.name"></input></div>
+    </div>
+    <div class="container form-group">
+      <label class="col-lg-1"> To </label>
+      <div class="col-lg-5"> 
+        <select ng-model="route.to" ng-options="place.id as place.name for place in game.places"></select>
+      </div>
+      <label class="col-lg-1"> From </label>
+      <div class="col-lg-5"> 
+        <select ng-model="route.from" ng-options="place.id as place.name for place in game.places"></select>
+      </div>
+    </div>
+    <div class="container form-group">
+      <label class="col-lg-1"> Description </label>
+      <div class="col-lg-11"><textarea rows="2" class="form-control" ng-model="route.desc"></textarea></div>
+    </div>
+  </div>
+  <button class="btn" ng-click="addRoute()">New Route</button>
+</tab>
+
+<tab heading="Objects">
+object content
+</tab>
+
+<tab heading="Places">
+<div class="panel-group" id="accordion">
+  <h4> Places </h4>
+  <button class="btn" ng-click="addPlace()">New place</button>
+  <div class="panel panel-default" ng-repeat="place in game.places">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#place_{{alphaNum(place.name)}}">
+          {{place.name}}
+
+        </a>
+      </h4>
+    </div>
+    <div id="place_{{alphaNum(place.name)}}" class="panel-collapse collapse ">
+      <div class="panel-body">
+        <!-- Interior of place panel -->
+        <div class="form-group">
+          <label class="col-lg-1"> Name </label>
+          <div class="col-lg-11"> <input class="form-control input-lg" ng-model="place.name"></input> </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-1"> Description </label>
+          <div class="col-lg-11"> <textarea rows="3" class="form-control" ng-model="place.desc"></textarea> </div>
+        </div>
+
+        <!-- Route code -->
+        <button class="button" ng-click="addRoute(place)">New Route</button>
+        <div class="panel" ng-show="place.routes.length > 0">
+          <div class="panel panel-heading "> <a class="" data-toggle="collapse" href="#routes_{{alphaNum(place.name)}}">
+              Routes <span class="badge">{{place.routes.length}}</span></a> </div>
+          <div class="panel-collapse collapse" id="routes_{{alphaNum(place.name)}}">
+            <div class="container panel" ng-repeat="route in place.routes">
+              <div class="form-group">
+                <label class="col-lg-1">Name</label>
+                <div class="col-lg-11"><input class="input-sm form-control" type="text" ng-model="route.name"></input></div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-1">To</label>
+                <div class="col-lg-11"><input class="input-sm form-control" type="text" ng-model="route.to"></input></div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-1">Description</label>
+                <div class="col-lg-11"><textarea class="input-sm form-control" ng-model="route.desc"></textarea></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Object code -->
+        <button class="button" ng-click="addObject(place)">New Object</button>
+        <div class="panel" ng-show="place.objects.length > 0">
+          <div class="panel panel-heading "> <a class="" data-toggle="collapse" href="#objects_{{alphaNum(place.name)}}">
+              Objects <span class="badge">{{place.objects.length}}</span></a> </div>
+          <div class="panel-collapse collapse" id="objects_{{alphaNum(place.name)}}">
+            <div class="container panel" ng-repeat="object in place.objects">
+              <div class="form-group">
+                <label class="col-lg-1">Name</label>
+                <div class="col-lg-11"><input class="input-sm form-control" type="text" ng-model="object.name"></input></div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-1">Description</label>
+                <div class="col-lg-11"><textarea class="input-sm form-control" ng-model="object.desc"></textarea></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+</tab>
+</tabset>
