@@ -118,6 +118,17 @@ function WriterCtrl($scope, $routeParams, $http){
     console.log($scope.game);
   }
 
+  $scope.export = function(){
+    prompt("Copy the below:", angular.toJson($scope.game));
+  }
+
+  $scope.import = function(){
+    var game = JSON.parse( prompt("Paste the game below:", ''));
+    if (game){
+      $scope.game = game;
+    }
+  }
+
   //load('wizardhackers');
   localStorage.games = localStorage.games || angular.toJson({});
   $scope.loadGame('wizardhackers');
