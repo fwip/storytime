@@ -1,11 +1,32 @@
 <h1> Writing: {{ game.title }} </h1>
 
-<button class="btn" ng-click="saveGame('wizardhackers')"> Save </button>
-<button class="btn" ng-click="loadGame('wizardhackers')"> Load </button>
+<span class="save">
+  <button class="btn btn-primary" ng-click="saveGame(game.savename)">Save</button>
+</span>
+<span class="saveas dropdown">
+  <button class="btn btn-primary dropdown-toggle">Save As</button>
+  <ul class="dropdown-menu">
+    <li ng-repeat="save in savedGames">
+    <a ng-click="saveGame(save.savename)">{{save.savename}}</a>
+    </li>
+    <li>
+    <a ng-click="saveDialog()"> New Save </a>
+    </li>
+  </ul>
+</span>
+<span class="load dropdown">
+  <button class="btn btn-primary dropdown-toggle"> Load </button>
+  <ul class="dropdown-menu">
+    <li ng-repeat="save in savedGames">
+    <a ng-click="loadGame(save.savename)">{{save.savename}}</a>
+    </li>
+  </ul>
+</span>
 
 <tabset>
 
 <tab heading="Stats">
+<button class="btn btn-primary" ng-click="addStat()"> Add Stat </button>
 <table class="table">
   <tr> <th> Stat </th> <th> Starting value </th> </tr>
   <tr ng-repeat="stat in game.stats">
