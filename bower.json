@@ -1,0 +1,24 @@
+{
+  "name": "storytime",
+  "version": "0.0.1",
+  "authors": [
+    "Jemma Nelson <pink.fwip@gmail.com>"
+  ],
+  "description": "A framework for creating text-based stories",
+  "main": "index.html",
+  "license": "MIT",
+  "homepage": "fwip.github.io/storytime",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-bootstrap": "~0.6.0",
+    "angular": "~1.0.8",
+    "bootstrap": "~3.0.0"
+  }
+}
