@@ -17,7 +17,13 @@ function GameCtrl($scope, $routeParams, $http){
     console.log("yay");
   }
 
-  load('wizardhackers');
+  $scope.selectStory = function(name){
+    var data = JSON.parse(localStorage.games)[name];
+    $scope.game = data;
+    $scope.goto(1);
+  }
+
+  //load('wizardhackers');
 
   $scope.goto = function (id){
     $scope.game.current_place = $scope.game.places.filter(
@@ -25,6 +31,8 @@ function GameCtrl($scope, $routeParams, $http){
     $scope.game.available_routes = $scope.game.routes.filter(
       function(r){ return r.from == id});
   }
+
+  $scope.stories = JSON.parse(localStorage.games);
 }
 
 function WriterCtrl($scope, $routeParams, $http){

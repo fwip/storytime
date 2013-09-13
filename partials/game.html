@@ -2,6 +2,14 @@
 
 <h1> {{ game.title }} </h1>
 
+<span class="load dropdown">
+  <button class="btn btn-primary dropdown-toggle"> Select Story </button>
+  <ul class="dropdown-menu">
+    <li ng-repeat="story in stories">
+    <a ng-click="selectStory(story.savename)">{{story.savename}}</a>
+    </li>
+  </ul>
+</span>
 <div class="container-fluid">
   <div class="stats sidebar col-lg-2" ng-show="game.stats.length">
     <table class="table"> <tbody>
