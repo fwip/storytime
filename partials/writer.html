@@ -31,6 +31,19 @@
 
 <tabset>
 
+<tab heading="General">
+  <div class=" form-group">
+    <label class="col-lg-2 "> Story Title </label>
+    <div class="col-lg-10"> <input class="form-control input-lg" ng-model="game.title"></input> </div>
+  </div>
+  <div class="container form-group">
+    <label class="col-lg-2"> Start </label>
+    <div class="col-lg-10">
+      <select ng-model="game.start" ng-options="place.id as place.name for place in game.places"></select>
+    </div>
+  </div>
+</tab>
+
 <tab heading="Stats">
 <button class="btn btn-primary" ng-click="addStat()"> Add Stat </button>
 <table class="table">
@@ -44,7 +57,7 @@
 
 <tab heading="Routes">
 <div class="panel-group" id="route_accordion">
-  <button class="btn" ng-click="addRoute()">New Route</button>
+  <button class="btn btn-primary" ng-click="addRoute()">New Route</button>
   <div class="panel panel-default" ng-repeat="route in game.routes">
     <div class="panel-heading">
       <h4 class="panel-title">
@@ -79,18 +92,14 @@
 </div>
 </tab>
 
-<tab heading="Objects">
-object content
-</tab>
-
 <tab heading="Places">
 <div class="panel-group" id="accordion">
-  <button class="btn" ng-click="addPlace()">New place</button>
+  <button class="btn btn-primary" ng-click="addPlace()">New place</button>
   <div class="panel panel-default" ng-repeat="place in game.places">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#place_{{alphaNum(place.name)}}">
-          {{place.name}}
+          {{place.name}} ({{place.id}})
 
         </a>
       </h4>
@@ -109,7 +118,7 @@ object content
 
 
         <!-- Object code -->
-        <button class="button" ng-click="addObject(place)">New Object</button>
+        <button class="btn btn-primary" ng-click="addObject(place)">New Object</button>
         <div class="panel" ng-show="place.objects.length > 0">
           <div class="panel panel-heading "> <a class="" data-toggle="collapse" href="#objects_{{alphaNum(place.name)}}">
               Objects <span class="badge">{{place.objects.length}}</span></a> </div>

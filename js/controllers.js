@@ -20,7 +20,8 @@ function GameCtrl($scope, $routeParams, $http){
   $scope.selectStory = function(name){
     var data = JSON.parse(localStorage.games)[name];
     $scope.game = data;
-    $scope.goto(1);
+    $scope.goto($scope.game.start);
+    localStorage.selectedStory = name;
   }
 
   //load('wizardhackers');
@@ -33,6 +34,7 @@ function GameCtrl($scope, $routeParams, $http){
   }
 
   $scope.stories = JSON.parse(localStorage.games);
+  $scope.selectStory(localStorage.selectedStory);
 }
 
 function WriterCtrl($scope, $routeParams, $http){
@@ -69,7 +71,8 @@ function WriterCtrl($scope, $routeParams, $http){
   $scope.addPlace = function(){
     $scope.game.places.push( {
       "name": "New place",
-      "objects": [] });
+      "objects": [],
+      "id": ++$scope.game.nextPlaceID});
   }
 
   $scope.addRoute = function(){
@@ -94,6 +97,7 @@ function WriterCtrl($scope, $routeParams, $http){
     games[name] = game;
     localStorage.games = angular.toJson(games);
     $scope.savedGames = $scope.getSaves();
+    localStorage.selectedStory = name;
   }
 
   $scope.saveDialog = function(){
@@ -111,6 +115,7 @@ function WriterCtrl($scope, $routeParams, $http){
       "stats": [],
       "objects": [],
       "routes": [],
+      "nextPlaceID": 0
     };
 
     return game;
@@ -124,6 +129,7 @@ function WriterCtrl($scope, $routeParams, $http){
       $scope.game = $scope.newGame();
     }
     console.log($scope.game);
+    localStorage.selectedStory = name;
   }
 
   $scope.export = function(){
@@ -139,6 +145,6 @@ function WriterCtrl($scope, $routeParams, $http){
 
   //load('wizardhackers');
   localStorage.games = localStorage.games || angular.toJson({});
-  $scope.loadGame('wizardhackers');
+  $scope.loadGame(localStorage.selectedStory);
   $scope.savedGames = $scope.getSaves();
 }
