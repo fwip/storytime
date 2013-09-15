@@ -73,13 +73,13 @@
           <div class="col-lg-11"><input class="form-control input-lg" ng-model="route.name"></input></div>
         </div>
         <div class="container form-group">
+          <label class="col-lg-1"> From </label>
+          <div class="col-lg-5">
+            <select ng-model="route.from" ng-options="place.id as place.name for place in game.places"></select>
+          </div>
           <label class="col-lg-1"> To </label>
           <div class="col-lg-5"> 
             <select ng-model="route.to" ng-options="place.id as place.name for place in game.places"></select>
-          </div>
-          <label class="col-lg-1"> From </label>
-          <div class="col-lg-5"> 
-            <select ng-model="route.from" ng-options="place.id as place.name for place in game.places"></select>
           </div>
         </div>
         <div class="container form-group">

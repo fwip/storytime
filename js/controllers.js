@@ -33,6 +33,7 @@ function GameCtrl($scope, $routeParams, $http){
       function(r){ return r.from == id});
   }
 
+  localStorage.games = localStorage.games || angular.toJson({});
   $scope.stories = JSON.parse(localStorage.games);
   $scope.selectStory(localStorage.selectedStory);
 }
@@ -87,7 +88,7 @@ function WriterCtrl($scope, $routeParams, $http){
   $scope.routeName = function(route){
     var to = $scope.game.places.filter( function(d) { return d.id == route.to } )[0] || {};
     var from = $scope.game.places.filter( function(d) { return d.id == route.from } )[0] || {};
-    return (from.name || '_' ) + " to " + ( to.name || '_' ) + " via " + (route.name || '_');
+    return (from.name || '_' ) + " to " + ( to.name || '_' ) + ", via " + (route.name || '_');
   }
 
   $scope.saveGame = function(name){
