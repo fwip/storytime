@@ -101,17 +101,24 @@ function WriterCtrl($scope, $routeParams, $http){
   }
 
   $scope.saveGame = function(name){
-    var game = $scope.game;
-    game.savename = name;
-    var games = (localStorage.games) ? JSON.parse(localStorage.games) : {};
-    games[name] = game;
-    localStorage.games = angular.toJson(games);
-    $scope.savedGames = $scope.getSaves();
-    localStorage.selectedStory = name;
+    if (name){
+      var game = $scope.game;
+      game.savename = name;
+      var games = (localStorage.games) ? JSON.parse(localStorage.games) : {};
+      games[name] = game;
+      localStorage.games = angular.toJson(games);
+      $scope.savedGames = $scope.getSaves();
+      localStorage.selectedStory = name;
+    } else {
+      $scope.saveDialog();
+    }
   }
 
   $scope.saveDialog = function(){
-    $scope.saveGame(prompt("Save as", $scope.game.savename));
+    var name = prompt("Save as", $scope.game.savename)
+    if (name){
+      $scope.saveGame(name);
+    }
   }
 
   $scope.getSaves = function(){
