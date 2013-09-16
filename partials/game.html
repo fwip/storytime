@@ -13,12 +13,14 @@
 <div class="container-fluid">
   <div class="stats sidebar col-lg-2" ng-show="game.stats.length">
     <table class="table"> <tbody>
-    <tr ng-repeat="stat in game.stats">
-      <td> {{stat.name}} </td><td> {{stat.start}} </td>
-    </tr>
-  </tbody> </table>
+      <tr ng-repeat="stat in game.stats">
+        <td> {{stat.name}} </td><td> {{stat.start}} </td>
+      </tr>
+    </tbody> </table>
   </div>
 
+  <tabset>
+  <tab heading="Play">
   <div class="main content col-lg-10">
     <div class="name">
       <b>{{game.current_place.name}}</b>
@@ -27,10 +29,11 @@
       {{game.current_place.desc}}
     </div>
 
-    <ul class="list-group items" ng-show="game.current_place.objects">
+    <ul class="list-group items" ng-show="game.available_objects">
       Here, you see:
-      <li class="item list-group-item" ng-repeat="object in game.current_place.objects">
-      {{object.name}} - {{object.desc}}</li>
+      <li class="item list-group-item" ng-repeat="object in game.available_objects">
+      {{object.name}} - {{object.desc}}
+      <button class="btn btn-primary" ng-show="object.takeable" ng-click="take(object.id)">Take</button></li>
     </ul>
 
     <ul class="routes list-group" ng-show="game.available_routes">
@@ -42,4 +45,13 @@
       {{route.desc}} </li>
     </ul>
   </div>
+  </tab>
+  <tab heading="Inventory">
+    <ul>
+      <li ng-repeat="obj in game.inventory">
+        {{obj.name}} - {{obj.desc}}
+      </li>
+    </ul>
+  </tab>
+  </tabset>
 </div>

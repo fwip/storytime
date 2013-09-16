@@ -21,16 +21,26 @@ function GameCtrl($scope, $routeParams, $http){
     var data = JSON.parse(localStorage.games)[name];
     $scope.game = data;
     $scope.goto($scope.game.start);
+    $scope.game.inventory = [];
     localStorage.selectedStory = name;
   }
 
-  //load('wizardhackers');
+  $scope.take = function(id){
+    var obj = $scope.game.objects.filter( function(o){ return o.id == id})[0];
+    obj.loc = 'inventory';
+
+    $scope.game.inventory.push(obj);
+    $scope.goto( $scope.game.current_place.id );
+  }
+
 
   $scope.goto = function (id){
     $scope.game.current_place = $scope.game.places.filter(
       function(d){ return d.id == id})[0];
     $scope.game.available_routes = $scope.game.routes.filter(
       function(r){ return r.from == id});
+    $scope.game.available_objects = $scope.game.objects.filter(
+      function(o){ return o.loc == id});
   }
 
   localStorage.games = localStorage.games || angular.toJson({});
@@ -72,7 +82,6 @@ function WriterCtrl($scope, $routeParams, $http){
   $scope.addPlace = function(){
     $scope.game.places.push( {
       "name": "New place",
-      "objects": [],
       "id": ++$scope.game.nextPlaceID});
   }
 
@@ -80,9 +89,9 @@ function WriterCtrl($scope, $routeParams, $http){
     $scope.game.routes.push({});
   }
 
-  $scope.addObject = function(place){
-    place.objects = place.objects || [];
-    place.objects.push({});
+  $scope.addObject = function(){
+    $scope.game.objects = $scope.game.objects || [];
+    $scope.game.objects.push({'name': '', 'desc': '', 'takeable': false, 'id': $scope.game.nextObjectID++});
   }
 
   $scope.routeName = function(route){
@@ -116,10 +125,11 @@ function WriterCtrl($scope, $routeParams, $http){
       "stats": [],
       "objects": [],
       "routes": [],
-      "nextPlaceID": 0
+      "nextPlaceID": 0,
+      "nextObjectID": 0
     };
 
-    return game;
+    $scope.game = game;
   }
 
   $scope.loadGame = function(name){
@@ -127,7 +137,8 @@ function WriterCtrl($scope, $routeParams, $http){
     console.log(name);
     console.log(JSON.parse(localStorage.games));
     if (! $scope.game ){
-      $scope.game = $scope.newGame();
+      $scope.newGame();
+      return;
     }
     console.log($scope.game);
     localStorage.selectedStory = name;
