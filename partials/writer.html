@@ -7,7 +7,7 @@
   <button class="btn btn-primary" ng-click="saveGame(game.savename)">Save</button>
 </span>
 <span class="saveas dropdown">
-  <button class="btn btn-primary dropdown-toggle">Save As</button>
+  <button class="btn btn-primary dropdown-toggle">Save As <span class="caret"></span> </button>
   <ul class="dropdown-menu">
     <li ng-repeat="save in savedGames">
     <a ng-click="saveGame(save.savename)">{{save.savename}}</a>
@@ -18,7 +18,7 @@
   </ul>
 </span>
 <span class="load dropdown">
-  <button class="btn btn-primary dropdown-toggle"> Load </button>
+  <button class="btn btn-primary dropdown-toggle"> Load <span class="caret"></span> </button>
   <ul class="dropdown-menu">
     <li ng-repeat="save in savedGames">
     <a ng-click="loadGame(save.savename)">{{save.savename}}</a>
