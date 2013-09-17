@@ -8,3 +8,14 @@ angular.module('storytime', ['ui.bootstrap']).
     otherwise({redirectTo: '/'});
 }]);
 
+
+Array.prototype.deleteById = function(id){
+  var len = this.length;
+  for (var i = 0; i < len; i++){
+    if (this[i].id == id){
+      this.splice(i, 1);
+      return true;
+    }
+  }
+  return false;
+}

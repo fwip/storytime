@@ -72,6 +72,7 @@ function WriterCtrl($scope, $routeParams, $http){
     return string.replace(/[^-_A-z0-9]+/g, '');
   }
 
+  /* Creation code */
   $scope.addStat = function(){
     $scope.game.stats.push( {
       "name": '',
@@ -86,12 +87,21 @@ function WriterCtrl($scope, $routeParams, $http){
   }
 
   $scope.addRoute = function(){
-    $scope.game.routes.push({});
+    $scope.game.routes.push({
+    "id": ++$scope.game.nextRouteID});
   }
 
   $scope.addObject = function(){
     $scope.game.objects = $scope.game.objects || [];
     $scope.game.objects.push({'name': '', 'desc': '', 'takeable': false, 'id': $scope.game.nextObjectID++});
+  }
+
+  /* Removal code */
+  $scope.deleteThing = function(id, type){
+    var list = $scope.game[type];
+    if (confirm('Really delete?')){
+      list.deleteById(id);
+    }
   }
 
   $scope.routeName = function(route){
@@ -133,7 +143,8 @@ function WriterCtrl($scope, $routeParams, $http){
       "objects": [],
       "routes": [],
       "nextPlaceID": 0,
-      "nextObjectID": 0
+      "nextObjectID": 0,
+      "nextRouteID": 0
     };
 
     $scope.game = game;
