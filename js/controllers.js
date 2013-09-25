@@ -71,18 +71,22 @@ function WriterCtrl($scope, $routeParams, $http){
 
       // Update all IDs.
       game.nextID = 1;
+      var old2newPlace = {};
       for (var i = 0; i < game.places.length; i++){
         var tmpID = game.places[i].id || 0;
-        game.routes.filter( function(d) { return (d.to == tmpID) }).map( function(d) { d.to = game.nextID });
-        game.routes.filter( function(d) { return (d.from == tmpID) }).map( function(d) { d.from = game.nextID });
-        game.objects.filter( function(d) { return (d.loc == tmpID) }).map( function(d) { d.loc = game.nextID });
+        old2newPlace[tmpID] = game.nextID;
         game.places[i].id = game.nextID++;
       }
       for (var i = 0; i < game.routes.length; i++){
-        game.routes[i].id = game.nextID++;
+        var r = game.routes[i];
+        r.id = game.nextID++;
+        r.to = old2newPlace[r.to];
+        r.from = old2newPlace[r.from];
       }
       for (var i = 0; i < game.objects.length; i++){
-        game.objects[i].id = game.nextID++;
+        var o = game.objects[i];
+        o.id = game.nextID++;
+        o.loc = old2newPlace[o.loc];
       }
     }
     alert('Upgrade complete - please check to make sure stuff is okay before you save it');
