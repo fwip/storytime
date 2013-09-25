@@ -120,12 +120,12 @@ function WriterCtrl($scope, $routeParams, $http){
   $scope.addPlace = function(){
     $scope.game.places.push( {
       "name": "New place",
-      "id": ++$scope.game.nextID});
+      "id": $scope.game.nextID++});
   }
 
   $scope.addRoute = function(){
     $scope.game.routes.push({
-    "id": ++$scope.game.nextID});
+    "id": $scope.game.nextID++});
   }
 
   $scope.addObject = function(){
