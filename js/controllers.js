@@ -50,6 +50,17 @@ function GameCtrl($scope, $routeParams, $http){
 
 function WriterCtrl($scope, $routeParams, $http){
 
+  var Writer = {};
+
+  Writer.places_config_html = 
+    '<div class="form-group">'
+  + '<label class="col-lg-1"> Name </label>'
+  + '<div class="col-lg-11"> <input class="form-control input-lg" ng-model="o.name"></input> </div>'
+  + '</div>'
+  + '<div class="form-group">'
+  + '<label class="col-lg-1"> Description </label>'
+  + '<div class="col-lg-11"> <textarea rows="3" class="form-control" ng-model="o.desc"></textarea> </div>'
+  + '</div>';
 
   /* doesn't work as advertised */
   function loadFromUrl(storyname){
@@ -102,6 +113,15 @@ function WriterCtrl($scope, $routeParams, $http){
     if (confirm('Really delete?')){
       list.deleteById(id);
     }
+  }
+
+  $scope.moveThingUp = function(id, type){
+    var list = $scope.game[type];
+    list.moveUpById(id);
+  }
+  $scope.moveThingDown = function(id, type){
+    var list = $scope.game[type];
+    list.moveDownById(id);
   }
 
   $scope.routeName = function(route){
