@@ -3,7 +3,7 @@
 <h1> {{ game.title }} </h1>
 
 <span class="load dropdown">
-  <button class="btn btn-primary dropdown-toggle"> Select Story </button>
+  <button class="btn btn-primary dropdown-toggle"> Select Story <span class="caret"></span> </button>
   <ul class="dropdown-menu">
     <li ng-repeat="story in stories">
     <a ng-click="selectStory(story.savename)">{{story.savename}}</a>

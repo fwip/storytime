@@ -7,7 +7,7 @@
   <button class="btn btn-primary" ng-click="saveGame(game.savename)">Save</button>
 </span>
 <span class="saveas dropdown">
-  <button class="btn btn-primary dropdown-toggle">Save As</button>
+  <button class="btn btn-primary dropdown-toggle">Save As <span class="caret"></span> </button>
   <ul class="dropdown-menu">
     <li ng-repeat="save in savedGames">
     <a ng-click="saveGame(save.savename)">{{save.savename}}</a>
@@ -18,7 +18,7 @@
   </ul>
 </span>
 <span class="load dropdown">
-  <button class="btn btn-primary dropdown-toggle"> Load </button>
+  <button class="btn btn-primary dropdown-toggle"> Load <span class="caret"></span> </button>
   <ul class="dropdown-menu">
     <li ng-repeat="save in savedGames">
     <a ng-click="loadGame(save.savename)">{{save.savename}}</a>
@@ -30,6 +30,9 @@
 </span>
 <span class="import">
   <button class="btn btn-primary" ng-click="import()">Import</button>
+</span>
+<span class="upgrade">
+  <button class="btn btn-primary" ng-click="migrateStory()">Migrate Story (dev)</button>
 </span>
 
 <tabset>
@@ -61,37 +64,7 @@
 <tab heading="Routes">
 <div class="panel-group" id="route_accordion">
   <button class="btn btn-primary" ng-click="addRoute()">New Route</button>
-  <div class="panel panel-default" ng-repeat="route in game.routes">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#route_accordion" href="#route_{{route.from}}-{{route.to}}">
-          {{routeName(route)}}
-        </a>
-      </h4>
-    </div>
-    <div id="route_{{route.from}}-{{route.to}}" class="panel-collapse collapse">
-      <div class="panel-body">
-        <div class="container form-group">
-          <label class="col-lg-1"> Name </label>
-          <div class="col-lg-11"><input class="form-control input-lg" ng-model="route.name"></input></div>
-        </div>
-        <div class="container form-group">
-          <label class="col-lg-1"> From </label>
-          <div class="col-lg-5">
-            <select ng-model="route.from" ng-options="place.id as place.name for place in game.places"></select>
-          </div>
-          <label class="col-lg-1"> To </label>
-          <div class="col-lg-5"> 
-            <select ng-model="route.to" ng-options="place.id as place.name for place in game.places"></select>
-          </div>
-        </div>
-        <div class="container form-group">
-          <label class="col-lg-1"> Description </label>
-          <div class="col-lg-11"><textarea rows="2" class="form-control" ng-model="route.desc"></textarea></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div array-accordion="routes"> </div>
 </div>
 </tab>
 
@@ -99,65 +72,14 @@
 <!-- Object code -->
 <div class="pane-group" id="object_accordion">
   <button class="btn btn-primary" ng-click="addObject()">New Object</button>
-  <div class="panel panel-default" ng-repeat="object in game.objects">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#object_accordion" href="#object_{{object.id}}">
-          {{object.name}} ({{object.id}})
-        </a>
-      </h4>
-    </div>
-
-    <div id="object_{{object.id}}" class="panel-collapse collapse">
-      <div class="panel-body">
-        <div class="form-group">
-          <label class="col-lg-1">Name</label>
-          <div class="col-lg-11"><input class="input-sm form-control" type="text" ng-model="object.name"></input></div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-1">Description</label>
-          <div class="col-lg-11"><textarea class="input-sm form-control" ng-model="object.desc"></textarea></div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-1">Takeable</label>
-          <div class="col-lg-1"><input type="checkbox" class="checkbox input-sm form-control" ng-model="object.takeable"></input></div>
-          <label class="col-lg-1">Location</label>
-          <div class="col-lg-1">
-            <select ng-model="object.loc" ng-options="place.id as place.name for place in game.places"></select>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div array-accordion="objects"> </div>
 </div>
 </tab>
 
 <tab heading="Places">
-<div class="panel-group" id="place_accordion">
   <button class="btn btn-primary" ng-click="addPlace()">New place</button>
-  <div class="panel panel-default" ng-repeat="place in game.places">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#place_accordion" href="#place_{{place.id}}">
-          {{place.name}} ({{place.id}})
-        </a>
-      </h4>
-    </div>
+  <div array-accordion="places"> </div>
 
-    <div id="place_{{place.id}}" class="panel-collapse collapse ">
-      <div class="panel-body">
-        <!-- Interior of place panel -->
-        <div class="form-group">
-          <label class="col-lg-1"> Name </label>
-          <div class="col-lg-11"> <input class="form-control input-lg" ng-model="place.name"></input> </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-1"> Description </label>
-          <div class="col-lg-11"> <textarea rows="3" class="form-control" ng-model="place.desc"></textarea> </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 
 </tab>

@@ -50,6 +50,43 @@ function GameCtrl($scope, $routeParams, $http){
 
 function WriterCtrl($scope, $routeParams, $http){
 
+  var Writer = {};
+
+  Writer.places_config_html = 
+    '<div class="form-group">'
+  + '<label class="col-lg-1"> Name </label>'
+  + '<div class="col-lg-11"> <input class="form-control input-lg" ng-model="o.name"></input> </div>'
+  + '</div>'
+  + '<div class="form-group">'
+  + '<label class="col-lg-1"> Description </label>'
+  + '<div class="col-lg-11"> <textarea rows="3" class="form-control" ng-model="o.desc"></textarea> </div>'
+  + '</div>';
+
+  $scope.migrateStory = function(fromVersion){
+    // Just update this when you've got new functions.
+    var currentVersion = 2;
+    fromVersion = fromVersion || 0;
+    if (fromVersion <= currentVersion){
+      var game = $scope.game;
+
+      // Update all IDs.
+      game.nextID = 1;
+      for (var i = 0; i < game.places.length; i++){
+        var tmpID = game.places[i].id || 0;
+        game.routes.filter( function(d) { return (d.to == tmpID) }).map( function(d) { d.to = game.nextID });
+        game.routes.filter( function(d) { return (d.from == tmpID) }).map( function(d) { d.from = game.nextID });
+        game.objects.filter( function(d) { return (d.loc == tmpID) }).map( function(d) { d.loc = game.nextID });
+        game.places[i].id = game.nextID++;
+      }
+      for (var i = 0; i < game.routes.length; i++){
+        game.routes[i].id = game.nextID++;
+      }
+      for (var i = 0; i < game.objects.length; i++){
+        game.objects[i].id = game.nextID++;
+      }
+    }
+    alert('Upgrade complete - please check to make sure stuff is okay before you save it');
+  }
 
   /* doesn't work as advertised */
   function loadFromUrl(storyname){
@@ -72,6 +109,7 @@ function WriterCtrl($scope, $routeParams, $http){
     return string.replace(/[^-_A-z0-9]+/g, '');
   }
 
+  /* Creation code */
   $scope.addStat = function(){
     $scope.game.stats.push( {
       "name": '',
@@ -82,16 +120,34 @@ function WriterCtrl($scope, $routeParams, $http){
   $scope.addPlace = function(){
     $scope.game.places.push( {
       "name": "New place",
-      "id": ++$scope.game.nextPlaceID});
+      "id": ++$scope.game.nextID});
   }
 
   $scope.addRoute = function(){
-    $scope.game.routes.push({});
+    $scope.game.routes.push({
+    "id": ++$scope.game.nextID});
   }
 
   $scope.addObject = function(){
     $scope.game.objects = $scope.game.objects || [];
-    $scope.game.objects.push({'name': '', 'desc': '', 'takeable': false, 'id': $scope.game.nextObjectID++});
+    $scope.game.objects.push({'name': '', 'desc': '', 'takeable': false, 'id': $scope.game.nextID++});
+  }
+
+  /* Removal code */
+  $scope.deleteThing = function(id, type){
+    var list = $scope.game[type];
+    if (confirm('Really delete?')){
+      list.deleteById(id);
+    }
+  }
+
+  $scope.moveThingUp = function(id, type){
+    var list = $scope.game[type];
+    list.moveUpById(id);
+  }
+  $scope.moveThingDown = function(id, type){
+    var list = $scope.game[type];
+    list.moveDownById(id);
   }
 
   $scope.routeName = function(route){
@@ -132,8 +188,7 @@ function WriterCtrl($scope, $routeParams, $http){
       "stats": [],
       "objects": [],
       "routes": [],
-      "nextPlaceID": 0,
-      "nextObjectID": 0
+      "nextID": 1,
     };
 
     $scope.game = game;
