@@ -37,9 +37,9 @@
     </ul>
 
     <ul class="routes list-group" ng-show="game.available_routes">
-      You can go: 
+      You can go:
       <li class="route list-group-item" ng-repeat="route in game.available_routes">
-      <button ng-click="goto(route.to)" ng-disabled="!route.to">
+      <button ng-click="goto(route.to)" ng-disabled="! reqsSatisfied(route)">
         {{route.name}}
       </button>
       {{route.desc}} </li>

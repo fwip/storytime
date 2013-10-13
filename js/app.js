@@ -83,11 +83,37 @@ Array.prototype.moveDownById = function(id){
   return false;
 }
 
+/*Array.prototype.findById = function(id){
+  return (this.filter(function(o){3 == 3}));
+}*/
+
+Array.prototype.hasId = function(id){
+  for (var i = 0; i < this.length; i++){
+    if (this[i].id == id){
+      return true;
+    }
+  }
+  return false;
+}
+
 // Config HTML
 var Writer = {};
 Writer.config_html = {};
 
-Writer.config_html.places = 
+Writer.config_html.reqs =
+  '<div class="container">'
+ + '<button class="btn" ng-click="addReq(o)">Add Requirement</button>'
+  + '<div class="form-group" ng-repeat="req in o.reqs">'
+   + '<div class="col-lg-1"> Type: </div>'
+   + '<select class="col-lg-2" ng-model="req.type">'
+    + '<option value="hasItem">Has Item</option>'
+   + '</select>'
+   + '<div class="col-lg-1">Object:</div>'
+    + '<select class="col-lg-2" ng-model="req.objectId" ng-options="object.id as object.name for object in game.objects"></select>'
+  + '</div>'
+ + '</div>';
+
+Writer.config_html.places =
   '<div class="form-group">'
 + '<label class="col-lg-1"> Name </label>'
 + '<div class="col-lg-11"> <input class="form-control input-lg" ng-model="o.name"></input> </div>'
@@ -97,7 +123,7 @@ Writer.config_html.places =
 + '<div class="col-lg-11"> <textarea rows="3" class="form-control" ng-model="o.desc"></textarea> </div>'
 + '</div>';
 
-Writer.config_html.routes = 
+Writer.config_html.routes =
         '<div class="container form-group">'
           + '<label class="col-lg-1"> Name </label>'
           + '<div class="col-lg-11"><input class="form-control input-lg" ng-model="o.name"></input></div>'
@@ -108,16 +134,17 @@ Writer.config_html.routes =
             + '<select ng-model="o.from" ng-options="place.id as place.name for place in game.places"></select>'
           + '</div>'
           + '<label class="col-lg-1"> To </label>'
-          + '<div class="col-lg-5">' 
+          + '<div class="col-lg-5">'
             + '<select ng-model="o.to" ng-options="place.id as place.name for place in game.places"></select>'
           + '</div>'
         + '</div>'
         + '<div class="container form-group">'
           + '<label class="col-lg-1"> Description </label>'
           + '<div class="col-lg-11"><textarea rows="2" class="form-control" ng-model="o.desc"></textarea></div>'
-        + '</div>';
+        + '</div>'
+        + Writer.config_html.reqs;
 
-Writer.config_html.objects = 
+Writer.config_html.objects =
         '<div class="form-group">'
           + '<label class="col-lg-1">Name</label>'
           + '<div class="col-lg-11"><input class="input-sm form-control" type="text" ng-model="o.name"></input></div>'

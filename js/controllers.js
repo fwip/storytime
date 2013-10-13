@@ -43,6 +43,39 @@ function GameCtrl($scope, $routeParams, $http){
       function(o){ return o.loc == id});
   }
 
+  $scope.reqsSatisfied = function(obj){
+    var reqs = obj.reqs;
+    for (var i = 0; i < reqs.length; i++){
+      if (! $scope.requirementSatisfied(reqs[i])){
+        return false;
+      }
+    }
+    return true;
+  }
+
+  $scope.hasObject = function(id){
+    return $scope.game.inventory.hasId(id);
+  }
+
+
+  $scope.requirementSatisfied = function(req){
+    if (!req) { return true };
+    switch (req.type){
+    case 'hasItem':
+      var okay = $scope.hasObject(req.objectId);
+      return okay;
+      break;
+    case 'hasEffect':
+      //NYI
+      break;
+    case 'stat':
+      //NYI
+      break;
+    default:
+    }
+    return false;
+  }
+
   localStorage.games = localStorage.games || angular.toJson({});
   $scope.stories = JSON.parse(localStorage.games);
   $scope.selectStory(localStorage.selectedStory);
@@ -52,7 +85,7 @@ function WriterCtrl($scope, $routeParams, $http){
 
   var Writer = {};
 
-  Writer.places_config_html = 
+  Writer.places_config_html =
     '<div class="form-group">'
   + '<label class="col-lg-1"> Name </label>'
   + '<div class="col-lg-11"> <input class="form-control input-lg" ng-model="o.name"></input> </div>'
@@ -137,6 +170,11 @@ function WriterCtrl($scope, $routeParams, $http){
     $scope.game.objects.push({'name': '', 'desc': '', 'takeable': false, 'id': $scope.game.nextID++});
   }
 
+  $scope.addReq = function(object){
+    object.reqs = object.reqs || [];
+    object.reqs.push({'type': 'hasItem'});
+  }
+
   /* Removal code */
   $scope.deleteThing = function(id, type){
     var list = $scope.game[type];
@@ -199,7 +237,7 @@ function WriterCtrl($scope, $routeParams, $http){
   }
 
   $scope.loadGame = function(name){
-    $scope.game = JSON.parse(localStorage.games)[name]; 
+    $scope.game = JSON.parse(localStorage.games)[name];
     console.log(name);
     console.log(JSON.parse(localStorage.games));
     if (! $scope.game ){
