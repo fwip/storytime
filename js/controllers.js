@@ -45,9 +45,11 @@ function GameCtrl($scope, $routeParams, $http){
 
   $scope.reqsSatisfied = function(obj){
     var reqs = obj.reqs;
-    for (var i = 0; i < reqs.length; i++){
-      if (! $scope.requirementSatisfied(reqs[i])){
-        return false;
+    if (reqs){
+      for (var i = 0; i < reqs.length; i++){
+        if (! $scope.requirementSatisfied(reqs[i])){
+          return false;
+        }
       }
     }
     return true;
