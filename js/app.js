@@ -102,16 +102,16 @@ Writer.config_html = {};
 
 Writer.config_html.reqs =
   '<div class="container">'
- + '<button class="btn" ng-click="addReq(o)">Add Requirement</button>'
-  + '<div class="form-group" ng-repeat="req in o.reqs">'
-   + '<div class="col-lg-1"> Type: </div>'
-   + '<select class="col-lg-2" ng-model="req.type">'
-    + '<option value="hasItem">Has Item</option>'
-   + '</select>'
-   + '<div class="col-lg-1">Object:</div>'
-    + '<select class="col-lg-2" ng-model="req.objectId" ng-options="object.id as object.name for object in game.objects"></select>'
-  + '</div>'
- + '</div>';
+ + '<button class="btn btn-primary" ng-click="addReq(o)">Add Requirement</button>'
+ + '<div class="form-group container" ng-repeat="req in o.reqs">'
+  + '<div class="col-lg-1"> Type: </div>'
+  + '<select class="col-lg-2" ng-model="req.type">'
+   + '<option value="hasItem">Has Item</option>'
+  + '</select>'
+  + '<div class="col-lg-1">Object:</div>'
+  + '<select class="col-lg-2" ng-model="req.objectId" ng-options="object.id as object.name for object in game.objects"></select>'
+ + '</div>'
++ '</div>';
 
 Writer.config_html.places =
   '<div class="form-group">'
