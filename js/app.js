@@ -162,3 +162,9 @@ Writer.config_html.objects =
             + '<select ng-model="o.loc" ng-options="place.id as place.name for place in game.places"></select>'
           + '</div>'
         + '</div>';
+
+function NavbarController($scope, $location){
+  $scope.isActive = function(loc){
+    return loc == $location.path();
+  };
+}
