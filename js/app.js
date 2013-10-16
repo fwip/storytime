@@ -2,6 +2,7 @@
 var app = angular.module('storytime', ['ui.bootstrap']).
   config(['$routeProvider', function($routeProvider){
   $routeProvider.
+    when('/news', {templateUrl: 'partials/news.html'}).
     when('/game', {templateUrl: 'partials/game.html', controller: GameCtrl}).
     when('/writer', {templateUrl: 'partials/writer.html', controller: WriterCtrl}).
     otherwise({redirectTo: '/', templateUrl: 'partials/home.html'});
