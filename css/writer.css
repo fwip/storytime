@@ -1,0 +1,14 @@
+.tile {
+  width: 100px;
+  height: 100px;
+  /*text-align: center;*/
+  float: left;
+  margin: 4px;
+
+  line-height: 90px;
+  color: white;
+}
+
+.place-tile {
+  background: #D5D;
+}

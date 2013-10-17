@@ -47,16 +47,16 @@ app.directive('arrayAccordion', function($http){
 });
 
 
-  Array.prototype.deleteById = function(id){
-    var len = this.length;
-    for (var i = 0; i < len; i++){
-      if (this[i].id == id){
-        this.splice(i, 1);
+Array.prototype.deleteById = function(id){
+  var len = this.length;
+  for (var i = 0; i < len; i++){
+    if (this[i].id == id){
+      this.splice(i, 1);
       return true;
     }
   }
   return false;
-}
+};
 
 Array.prototype.moveUpById = function(id){
   var len = this.length;
@@ -84,9 +84,9 @@ Array.prototype.moveDownById = function(id){
   return false;
 }
 
-/*Array.prototype.findById = function(id){
-  return (this.filter(function(o){3 == 3}));
-}*/
+Array.prototype.findById = function(id){
+  return this.filter(function(o){o.id == id}).first;
+}
 
 Array.prototype.hasId = function(id){
   for (var i = 0; i < this.length; i++){
@@ -168,3 +168,56 @@ function NavbarController($scope, $location){
     return loc == $location.path();
   };
 }
+
+app.directive('objconfig', function($http){
+
+  return  {
+    restrict: 'A',
+    compile: function( element, attrs){
+      console.log(element);
+      console.log(attrs);
+      var type = attrs.objconfig;
+
+      //var config_html = Writer.config_html[type];
+
+      //testing
+      var params = { place:
+        [
+          { name: 'name', type: 'text'},
+          { name: 'desc', type: 'textarea'}
+        ]
+      };
+
+      var elementhtml = '';
+      for (var i = 0; i < params[type].length; i++){
+        var p = params[type][i];
+        var opthtml = '';
+
+        switch(p.type){
+        case 'text':
+          opthtml += '<div class="container form-group">';
+          opthtml += '<label>' + p.name + '</label>';
+          opthtml += '<input class="form-control" class="input"' +
+            'ng-model="modalObject.' + p.name + '"> </input>';
+          opthtml += '</div>';
+          break;
+
+        case 'textarea':
+          opthtml += '<div class="container form-group">';
+          opthtml += '<label>' + p.name + '</label>';
+          opthtml += '<textarea class="form-control" class="textarea"' +
+            'ng-model="modalObject.' + p.name + '"> </textarea>';
+          break;
+
+        default:
+          opthtml += 'placeholder</br>'
+        }
+        elementhtml += opthtml;
+      }
+
+      element.append(elementhtml);
+    }
+
+  }
+
+});

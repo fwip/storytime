@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="css/writer.css"></script>
+
+
 <h1> Writing: {{ game.title }} </h1>
 
 <span class="new">
@@ -78,9 +81,34 @@
 
 <tab heading="Places">
   <button class="btn btn-primary" ng-click="addPlace()">New place</button>
+  <!--
   <div array-accordion="places"> </div>
+  -->
+  <div class="btn tile place-tile" ng-repeat="place in game.places" ng-click="openModal(place, type)"><p>{{place.name}}</p></div>
 
 </div>
 
 </tab>
 </tabset>
+
+
+
+
+<div id="placemodal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Place: {{modalObject.name}}</h4>
+      </div>
+      <div class="modal-body" objconfig="place">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" ng-click="deleteModal('places')">Delete</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="saveModal('places')">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

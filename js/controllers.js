@@ -261,6 +261,23 @@ function WriterCtrl($scope, $routeParams, $http){
     }
   }
 
+  $scope.openModal = function(object, type){
+    $scope.modalObject = JSON.parse(angular.toJson(object));
+    $scope.modal = $(placemodal).modal('show');
+  };
+
+  $scope.saveModal = function(type){
+    $scope.game[type].findById($scope.modalObject.id);
+    console.log('saved');
+    $scope.modal.modal('hide');
+  };
+
+  $scope.deleteModal = function(type){
+    console.log(type);
+    $scope.deleteThing($scope.modalObject.id, type);
+    $scope.modal.modal('hide');
+  };
+
   //load('wizardhackers');
   localStorage.games = localStorage.games || angular.toJson({});
   $scope.loadGame(localStorage.selectedStory);
