@@ -1,0 +1,41 @@
+.tile {
+  min-width: 100px;
+  height: 100px;
+  float: left;
+  margin: 2px;
+  font-size: 125%;
+  line-height: 90px;
+  color: white;
+}
+
+.tile:hover{
+  color: white;
+}
+
+.place-tile {
+  color: white;
+  background: #D2D;
+}
+.place-tile:hover {
+  color: white;
+  background: #929;
+}
+
+.object-tile {
+  color: white;
+  background: #28D;
+}
+.object-tile:hover {
+  color: white;
+  background: #169;
+}
+
+.route-tile {
+  color: white;
+  background: #4B4;
+}
+
+.route-tile:hover {
+  color: white;
+  background: #292;
+}

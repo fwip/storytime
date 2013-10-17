@@ -47,16 +47,16 @@ app.directive('arrayAccordion', function($http){
 });
 
 
-  Array.prototype.deleteById = function(id){
-    var len = this.length;
-    for (var i = 0; i < len; i++){
-      if (this[i].id == id){
-        this.splice(i, 1);
+Array.prototype.deleteById = function(id){
+  var len = this.length;
+  for (var i = 0; i < len; i++){
+    if (this[i].id == id){
+      this.splice(i, 1);
       return true;
     }
   }
   return false;
-}
+};
 
 Array.prototype.moveUpById = function(id){
   var len = this.length;
@@ -84,9 +84,9 @@ Array.prototype.moveDownById = function(id){
   return false;
 }
 
-/*Array.prototype.findById = function(id){
-  return (this.filter(function(o){3 == 3}));
-}*/
+Array.prototype.findById = function(id){
+  return this.filter(function(o){o.id == id}).first;
+}
 
 Array.prototype.hasId = function(id){
   for (var i = 0; i < this.length; i++){
@@ -168,3 +168,116 @@ function NavbarController($scope, $location){
     return loc == $location.path();
   };
 }
+
+app.directive('objmodal', function(){
+  return {
+    restrict: 'A',
+    compile: function(element, attrs){
+      var type = attrs.objmodal;
+
+      var html = '<div class="modal-dialog">'
+        + '<div class="modal-content">'
+        + '<div class="modal-header">'
+        + '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>'
+        + '<h4 class="modal-title">{{modalObject.name}}</h4>'
+        + '</div>'
+        + '<div class="modal-body" objconfig="' + type + '">'
+        + '</div>'
+        + '<div class="modal-footer">'
+        + '<button type="button" class="btn btn-danger" ng-click="deleteModal(\''+ type + '\')">Delete</button>'
+        + '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>'
+        + '<button type="button" class="btn btn-primary" ng-click="saveModal(\'' + type + '\')">Save changes</button>'
+        + '</div>'
+        + '</div>'
+        + '</div>';
+
+      element.append(html);
+    }
+  };
+});
+
+app.directive('objconfig', function(){
+
+  return  {
+    restrict: 'A',
+    compile: function( element, attrs){
+      console.log(element);
+      console.log(attrs);
+      var type = attrs.objconfig;
+
+      //var config_html = Writer.config_html[type];
+
+      //testing
+      var params = {
+        places:
+          [
+            { name: 'name', type: 'text'},
+            { name: 'desc', type: 'textarea'}
+          ],
+        objects:
+          [
+            { name: 'name', type: 'text' },
+            { name: 'desc', type: 'textarea' },
+            { name: 'takeable', type: 'boolean' },
+            { name: 'loc', type: 'select', choices: 'places' }
+          ],
+        routes:
+          [
+            { name: 'name', type: 'text' },
+            { name: 'desc', type: 'textarea' },
+            { name: 'to', type: 'select', choices: 'places' },
+            { name: 'from', type: 'select', choices: 'places' }
+          ]
+      };
+
+      var elementhtml = '';
+      for (var i = 0; i < params[type].length; i++){
+        var p = params[type][i];
+        var opthtml = '';
+
+        switch(p.type){
+        case 'text':
+          opthtml += '<div class="container form-group">';
+          opthtml += '<label>' + p.name + '</label>';
+          opthtml += '<input class="form-control" class="input"' +
+            'ng-model="modalObject.' + p.name + '"> </input>';
+          opthtml += '</div>';
+          break;
+
+        case 'textarea':
+          opthtml += '<div class="container form-group">';
+          opthtml += '<label>' + p.name + '</label>';
+          opthtml += '<textarea class="form-control textarea"' +
+            'ng-model="modalObject.' + p.name + '"> </textarea>';
+          opthtml += '</div>';
+          break;
+
+        case 'boolean':
+          opthtml += '<div class="container form-group">';
+          opthtml += '<label>' + p.name + '</label>';
+          opthtml += '<input type="checkbox" class="checkbox "'
+            + 'ng-model="modalObject.' + p.name + '"> </input>';
+          opthtml += '</div>';
+          break;
+
+        case 'select':
+          opthtml += '<div class="container form-group">';
+          opthtml += '<label>' + p.name + '</label>';
+          opthtml += '<select class="select form-control"'
+            + 'ng-model="modalObject.' + p.name + '"'
+            + 'ng-options="o.id as o.name for o in game.'+p.choices+'"> </select>';
+          opthtml += '</div>';
+          break;
+
+        default:
+          opthtml += 'placeholder</br>'
+        }
+        elementhtml += opthtml;
+      }
+
+      element.append(elementhtml);
+    }
+
+  }
+
+});
