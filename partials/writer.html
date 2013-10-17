@@ -67,7 +67,9 @@
 <tab heading="Routes">
 <div class="panel-group" id="route_accordion">
   <button class="btn btn-primary" ng-click="addRoute()">New Route</button>
-  <div array-accordion="routes"> </div>
+  <!--<div array-accordion="routes"> </div>-->
+  <div class="btn tile route-tile" ng-repeat="route in game.routes" ng-click="openModal(route, 'routes')"><p>{{route.name}}</p></div>
+  <div id="routesmodal" class="modal fade" objmodal="routes"></div>
 </div>
 </tab>
 
@@ -75,7 +77,9 @@
 <!-- Object code -->
 <div class="pane-group" id="object_accordion">
   <button class="btn btn-primary" ng-click="addObject()">New Object</button>
-  <div array-accordion="objects"> </div>
+  <!--<div array-accordion="objects"> </div>-->
+  <div class="btn tile object-tile" ng-repeat="object in game.objects" ng-click="openModal(object, 'objects')"><p>{{object.name}}</p></div>
+  <div id="objectsmodal" class="modal fade" objmodal="objects"></div>
 </div>
 </tab>
 
@@ -84,31 +88,10 @@
   <!--
   <div array-accordion="places"> </div>
   -->
-  <div class="btn tile place-tile" ng-repeat="place in game.places" ng-click="openModal(place, type)"><p>{{place.name}}</p></div>
+  <div class="btn tile place-tile" ng-repeat="place in game.places" ng-click="openModal(place, 'places')"><p>{{place.name}}</p></div>
+  <div id="placesmodal" class="modal fade" objmodal="places"></div>
 
 </div>
 
 </tab>
 </tabset>
-
-
-
-
-<div id="placemodal" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Place: {{modalObject.name}}</h4>
-      </div>
-      <div class="modal-body" objconfig="place">
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" ng-click="deleteModal('places')">Delete</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" ng-click="saveModal('places')">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>

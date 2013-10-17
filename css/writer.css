@@ -1,14 +1,35 @@
 .tile {
-  width: 100px;
+  min-width: 100px;
   height: 100px;
-  /*text-align: center;*/
   float: left;
-  margin: 4px;
-
+  margin: 2px;
+  font-size: 125%;
   line-height: 90px;
   color: white;
 }
 
+.tile:hover{
+  color: white;
+}
+
 .place-tile {
-  background: #D5D;
+  background: #D2D;
+}
+.place-tile:hover {
+  background: #929;
+}
+
+.object-tile {
+  background: #28D;
+}
+.object-tile:hover {
+  background: #169;
+}
+
+.route-tile {
+  background: #4B4;
+}
+
+.route-tile:hover {
+  background: #292;
 }

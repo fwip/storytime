@@ -263,17 +263,16 @@ function WriterCtrl($scope, $routeParams, $http){
 
   $scope.openModal = function(object, type){
     $scope.modalObject = JSON.parse(angular.toJson(object));
-    $scope.modal = $(placemodal).modal('show');
+    $scope.modal = $('#' + type + 'modal').modal('show');
   };
 
   $scope.saveModal = function(type){
-    $scope.game[type].findById($scope.modalObject.id);
-    console.log('saved');
+    $scope.game[type].deleteById($scope.modalObject.id);
+    $scope.game[type].push($scope.modalObject);
     $scope.modal.modal('hide');
   };
 
   $scope.deleteModal = function(type){
-    console.log(type);
     $scope.deleteThing($scope.modalObject.id, type);
     $scope.modal.modal('hide');
   };

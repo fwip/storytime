@@ -169,7 +169,34 @@ function NavbarController($scope, $location){
   };
 }
 
-app.directive('objconfig', function($http){
+app.directive('objmodal', function(){
+  return {
+    restrict: 'A',
+    compile: function(element, attrs){
+      var type = attrs.objmodal;
+
+      var html = '<div class="modal-dialog">'
+        + '<div class="modal-content">'
+        + '<div class="modal-header">'
+        + '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>'
+        + '<h4 class="modal-title">{{modalObject.name}}</h4>'
+        + '</div>'
+        + '<div class="modal-body" objconfig="' + type + '">'
+        + '</div>'
+        + '<div class="modal-footer">'
+        + '<button type="button" class="btn btn-danger" ng-click="deleteModal(\''+ type + '\')">Delete</button>'
+        + '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>'
+        + '<button type="button" class="btn btn-primary" ng-click="saveModal(\'' + type + '\')">Save changes</button>'
+        + '</div>'
+        + '</div>'
+        + '</div>';
+
+      element.append(html);
+    }
+  };
+});
+
+app.directive('objconfig', function(){
 
   return  {
     restrict: 'A',
@@ -181,11 +208,26 @@ app.directive('objconfig', function($http){
       //var config_html = Writer.config_html[type];
 
       //testing
-      var params = { place:
-        [
-          { name: 'name', type: 'text'},
-          { name: 'desc', type: 'textarea'}
-        ]
+      var params = {
+        places:
+          [
+            { name: 'name', type: 'text'},
+            { name: 'desc', type: 'textarea'}
+          ],
+        objects:
+          [
+            { name: 'name', type: 'text' },
+            { name: 'desc', type: 'textarea' },
+            { name: 'takeable', type: 'boolean' },
+            { name: 'loc', type: 'select', choices: 'places' }
+          ],
+        routes:
+          [
+            { name: 'name', type: 'text' },
+            { name: 'desc', type: 'textarea' },
+            { name: 'to', type: 'select', choices: 'places' },
+            { name: 'from', type: 'select', choices: 'places' }
+          ]
       };
 
       var elementhtml = '';
@@ -205,8 +247,26 @@ app.directive('objconfig', function($http){
         case 'textarea':
           opthtml += '<div class="container form-group">';
           opthtml += '<label>' + p.name + '</label>';
-          opthtml += '<textarea class="form-control" class="textarea"' +
+          opthtml += '<textarea class="form-control textarea"' +
             'ng-model="modalObject.' + p.name + '"> </textarea>';
+          opthtml += '</div>';
+          break;
+
+        case 'boolean':
+          opthtml += '<div class="container form-group">';
+          opthtml += '<label>' + p.name + '</label>';
+          opthtml += '<input type="checkbox" class="checkbox "'
+            + 'ng-model="modalObject.' + p.name + '"> </input>';
+          opthtml += '</div>';
+          break;
+
+        case 'select':
+          opthtml += '<div class="container form-group">';
+          opthtml += '<label>' + p.name + '</label>';
+          opthtml += '<select class="select form-control"'
+            + 'ng-model="modalObject.' + p.name + '"'
+            + 'ng-options="o.id as o.name for o in game.'+p.choices+'"> </select>';
+          opthtml += '</div>';
           break;
 
         default:
