@@ -67,9 +67,7 @@
 <tab heading="Routes">
 <div class="panel-group" id="route_accordion">
   <button class="btn btn-primary" ng-click="addRoute()">New Route</button>
-  <!--<div array-accordion="routes"> </div>-->
-  <div class="btn tile route-tile" ng-repeat="route in game.routes" ng-click="openModal(route, 'routes')"><p>{{route.name}}</p></div>
-  <div id="routesmodal" class="modal fade" objmodal="routes"></div>
+  <div array-accordion="routes"> </div>
 </div>
 </tab>
 
@@ -77,21 +75,30 @@
 <!-- Object code -->
 <div class="pane-group" id="object_accordion">
   <button class="btn btn-primary" ng-click="addObject()">New Object</button>
-  <!--<div array-accordion="objects"> </div>-->
-  <div class="btn tile object-tile" ng-repeat="object in game.objects" ng-click="openModal(object, 'objects')"><p>{{object.name}}</p></div>
-  <div id="objectsmodal" class="modal fade" objmodal="objects"></div>
+  <div array-accordion="objects"> </div>
 </div>
 </tab>
 
 <tab heading="Places">
   <button class="btn btn-primary" ng-click="addPlace()">New place</button>
-  <!--
   <div array-accordion="places"> </div>
-  -->
-  <div class="btn tile place-tile" ng-repeat="place in game.places" ng-click="openModal(place, 'places')"><p>{{place.name}}</p></div>
-  <div id="placesmodal" class="modal fade" objmodal="places"></div>
 
 </div>
+
+</tab>
+
+<tab heading="Grid">
+  <div class="buttonrow">
+    <button class="btn place-tile" ng-click="addPlace()">New Place</button>
+    <button class="btn object-tile" ng-click="addObject()">New Object</button>
+    <button class="btn route-tile" ng-click="addRoute()">New Route</button>
+  </div>
+  <div class="btn tile place-tile" ng-repeat="place in game.places" ng-click="openModal(place, 'places')"><p>{{place.name}}</p></div>
+  <div class="btn tile object-tile" ng-repeat="object in game.objects" ng-click="openModal(object, 'objects')"><p>{{object.name}}</p></div>
+  <div class="btn tile route-tile" ng-repeat="route in game.routes" ng-click="openModal(route, 'routes')"><p>{{route.name}}</p></div>
+  <div id="routesmodal" class="modal fade" objmodal="routes"></div>
+  <div id="placesmodal" class="modal fade" objmodal="places"></div>
+  <div id="objectsmodal" class="modal fade" objmodal="objects"></div>
 
 </tab>
 </tabset>
