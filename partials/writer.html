@@ -4,13 +4,13 @@
 <h1> Writing: {{ game.title }} </h1>
 
 <span class="new">
-  <button class="btn btn-primary" ng-click="newGame()">New Story</button>
+  <button class="btn" ng-click="newGame()">New Story</button>
 </span>
 <span class="save">
-  <button class="btn btn-primary" ng-click="saveGame(game.savename)">Save</button>
+  <button class="btn" ng-click="saveGame(game.savename)">Save</button>
 </span>
 <span class="saveas dropdown">
-  <button class="btn btn-primary dropdown-toggle">Save As <span class="caret"></span> </button>
+  <button class="btn dropdown-toggle">Save As <span class="caret"></span> </button>
   <ul class="dropdown-menu">
     <li ng-repeat="save in savedGames">
     <a ng-click="saveGame(save.savename)">{{save.savename}}</a>
@@ -21,7 +21,7 @@
   </ul>
 </span>
 <span class="load dropdown">
-  <button class="btn btn-primary dropdown-toggle"> Load <span class="caret"></span> </button>
+  <button class="btn dropdown-toggle"> Load <span class="caret"></span> </button>
   <ul class="dropdown-menu">
     <li ng-repeat="save in savedGames">
     <a ng-click="loadGame(save.savename)">{{save.savename}}</a>
@@ -29,13 +29,13 @@
   </ul>
 </span>
 <span class="export">
-  <button class="btn btn-primary" ng-click="export()">Export</button>
+  <button class="btn" ng-click="export()">Export</button>
 </span>
 <span class="import">
-  <button class="btn btn-primary" ng-click="import()">Import</button>
+  <button class="btn" ng-click="import()">Import</button>
 </span>
 <span class="upgrade">
-  <button class="btn btn-primary" ng-click="migrateStory()">Migrate Story (dev)</button>
+  <button class="btn" ng-click="migrateStory()">Migrate Story (dev)</button>
 </span>
 
 <tabset>
